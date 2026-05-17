@@ -1,31 +1,69 @@
 import { useEffect, useRef, useState } from 'react'
 
-const IMAGES = [
-  'https://motionsites.ai/assets/hero-space-voyage-preview-eECLH3Yc.gif',
-  'https://motionsites.ai/assets/hero-codenest-preview-Cgppc2qV.gif',
-  'https://motionsites.ai/assets/hero-vex-ventures-preview-BczMFIiw.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-v2-preview-DjvxjG3C.gif',
-  'https://motionsites.ai/assets/hero-asme-preview-B_nGDnTP.gif',
-  'https://motionsites.ai/assets/hero-transform-data-preview-Cx5OU29N.gif',
-  'https://motionsites.ai/assets/hero-vitara-preview-Cjz2QYyU.gif',
-  'https://motionsites.ai/assets/hero-terra-preview-BFjrCr7T.gif',
-  'https://motionsites.ai/assets/hero-skyelite-preview-DHaZIgUv.gif',
-  'https://motionsites.ai/assets/hero-aethera-preview-DknSlcTa.gif',
-  'https://motionsites.ai/assets/hero-designpro-preview-D8c5_een.gif',
-  'https://motionsites.ai/assets/hero-stellar-ai-preview-D3HL6bw1.gif',
-  'https://motionsites.ai/assets/hero-xportfolio-preview-D4A8maiC.gif',
-  'https://motionsites.ai/assets/hero-orbit-web3-preview-BXt4OttD.gif',
-  'https://motionsites.ai/assets/hero-nexora-preview-cx5HmUgo.gif',
-  'https://motionsites.ai/assets/hero-evr-ventures-preview-DZxeVFEX.gif',
-  'https://motionsites.ai/assets/hero-planet-orbit-preview-DWAP8Z1P.gif',
-  'https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif',
-  'https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif',
-  'https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif',
-  'https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif',
+const ROW1 = [
+  { name: 'Selenium', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg' },
+  { name: 'Cypress', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cypressio/cypressio-original.svg' },
+  { name: 'Java', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+  { name: 'Rest Assured', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-plain.svg' },
+  { name: 'TestNG', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg' },
+  { name: 'Maven', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg' },
+  { name: 'Jenkins', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg' },
+  { name: 'Postman', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postman/postman-original.svg' },
+  { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+  { name: 'GitLab', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg' },
 ]
 
-const ROW1 = [...IMAGES.slice(0, 11), ...IMAGES.slice(0, 11), ...IMAGES.slice(0, 11)]
-const ROW2 = [...IMAGES.slice(11), ...IMAGES.slice(11), ...IMAGES.slice(11)]
+const ROW2 = [
+  { name: 'AWS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg' },
+  { name: 'JIRA', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg' },
+  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+  { name: 'Cucumber', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cucumber/cucumber-plain.svg' },
+  { name: 'SQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg' },
+  { name: 'Splunk', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/splunk/splunk-original-wordmark.svg' },
+  { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+  { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+  { name: 'Bitbucket', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bitbucket/bitbucket-original.svg' },
+  { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg' },
+]
+
+// Triple each row for seamless infinite scroll
+const R1 = [...ROW1, ...ROW1, ...ROW1]
+const R2 = [...ROW2, ...ROW2, ...ROW2]
+
+function ToolCard({ name, icon }: { name: string; icon: string }) {
+  const [iconFailed, setIconFailed] = useState(false)
+  return (
+    <div
+      className="flex-shrink-0 flex items-center gap-3 px-6 py-4 rounded-2xl"
+      style={{
+        background: 'rgba(215,226,234,0.04)',
+        border: '1px solid rgba(215,226,234,0.1)',
+        minWidth: 160,
+      }}
+    >
+      {!iconFailed ? (
+        <img
+          src={icon}
+          alt={name}
+          className="w-8 h-8 object-contain flex-shrink-0"
+          onError={() => setIconFailed(true)}
+          style={{ filter: 'brightness(0.9)' }}
+        />
+      ) : (
+        <div
+          className="w-8 h-8 rounded flex-shrink-0"
+          style={{ background: 'linear-gradient(135deg, #646973, #BBCCD7)' }}
+        />
+      )}
+      <span
+        className="text-[#D7E2EA] font-medium uppercase tracking-wider whitespace-nowrap"
+        style={{ fontSize: 'clamp(0.75rem, 1.2vw, 1rem)' }}
+      >
+        {name}
+      </span>
+    </div>
+  )
+}
 
 export default function MarqueeSection() {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -36,10 +74,9 @@ export default function MarqueeSection() {
       const section = sectionRef.current
       if (!section) return
       const sectionTop = section.getBoundingClientRect().top + window.scrollY
-      const raw = (window.scrollY - sectionTop + window.innerHeight) * 0.3
+      const raw = (window.scrollY - sectionTop + window.innerHeight) * 0.25
       setOffset(raw)
     }
-
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
@@ -48,47 +85,37 @@ export default function MarqueeSection() {
   return (
     <section
       ref={sectionRef}
-      className="pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
+      className="pt-24 sm:pt-32 md:pt-40 pb-16 overflow-hidden"
       style={{ backgroundColor: '#0C0C0C' }}
     >
-      {/* Row 1 — moves right */}
+      {/* Label */}
+      <p
+        className="text-center text-[#D7E2EA]/40 font-light uppercase tracking-[0.4em] mb-12"
+        style={{ fontSize: 'clamp(0.7rem, 1.2vw, 0.9rem)' }}
+      >
+        Tools &amp; Technologies
+      </p>
+
+      {/* Row 1 — scrolls right */}
       <div
-        className="flex gap-3 mb-3"
+        className="flex gap-4 mb-4"
         style={{
-          transform: `translateX(${offset - 200}px)`,
+          transform: `translateX(${offset - 300}px)`,
           willChange: 'transform',
         }}
       >
-        {ROW1.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            loading="lazy"
-            className="rounded-2xl object-cover flex-shrink-0"
-            style={{ width: 420, height: 270 }}
-          />
-        ))}
+        {R1.map((tool, i) => <ToolCard key={i} {...tool} />)}
       </div>
 
-      {/* Row 2 — moves left */}
+      {/* Row 2 — scrolls left */}
       <div
-        className="flex gap-3"
+        className="flex gap-4"
         style={{
-          transform: `translateX(${-(offset - 200)}px)`,
+          transform: `translateX(${-(offset - 300)}px)`,
           willChange: 'transform',
         }}
       >
-        {ROW2.map((src, i) => (
-          <img
-            key={i}
-            src={src}
-            alt=""
-            loading="lazy"
-            className="rounded-2xl object-cover flex-shrink-0"
-            style={{ width: 420, height: 270 }}
-          />
-        ))}
+        {R2.map((tool, i) => <ToolCard key={i} {...tool} />)}
       </div>
     </section>
   )
