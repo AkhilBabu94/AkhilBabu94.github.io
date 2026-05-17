@@ -2,47 +2,50 @@ import FadeIn from './FadeIn'
 import Magnet from './Magnet'
 import ContactButton from './ContactButton'
 
+function InitialsAvatar() {
+  return (
+    <div
+      className="w-full h-full rounded-full flex items-center justify-center select-none"
+      style={{
+        background: 'linear-gradient(135deg, #1a0a2e 0%, #3b0d6e 40%, #6b21a8 70%, #be4c00 100%)',
+        boxShadow: '0 0 80px rgba(118,33,177,0.4), 0 0 160px rgba(118,33,177,0.15)',
+      }}
+    >
+      <span
+        className="font-black uppercase tracking-tighter"
+        style={{
+          fontSize: 'clamp(4rem, 10vw, 10rem)',
+          background: 'linear-gradient(180deg, #ffffff 0%, #BBCCD7 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+        }}
+      >
+        AB
+      </span>
+    </div>
+  )
+}
+
 export default function HeroSection() {
   return (
     <section
-      className="h-screen flex flex-col"
+      className="h-screen flex flex-col relative"
       style={{ overflowX: 'clip' }}
     >
       {/* Navbar */}
       <FadeIn delay={0} y={-20} as="nav">
         <nav className="flex justify-between items-center px-6 md:px-10 pt-6 md:pt-8">
-          <a
-            href="#about"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider
-              text-sm md:text-lg lg:text-[1.4rem]
-              transition-opacity duration-200 hover:opacity-70"
-          >
-            About
-          </a>
-          <a
-            href="#experience"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider
-              text-sm md:text-lg lg:text-[1.4rem]
-              transition-opacity duration-200 hover:opacity-70"
-          >
-            Experience
-          </a>
-          <a
-            href="#projects"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider
-              text-sm md:text-lg lg:text-[1.4rem]
-              transition-opacity duration-200 hover:opacity-70"
-          >
-            Projects
-          </a>
-          <a
-            href="#contact"
-            className="text-[#D7E2EA] font-medium uppercase tracking-wider
-              text-sm md:text-lg lg:text-[1.4rem]
-              transition-opacity duration-200 hover:opacity-70"
-          >
-            Contact
-          </a>
+          {['About', 'Experience', 'Projects', 'Contact'].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="text-[#D7E2EA] font-medium uppercase tracking-wider
+                text-sm md:text-lg lg:text-[1.4rem]
+                transition-opacity duration-200 hover:opacity-70"
+            >
+              {item}
+            </a>
+          ))}
         </nav>
       </FadeIn>
 
@@ -58,6 +61,32 @@ export default function HeroSection() {
           </h1>
         </FadeIn>
       </div>
+
+      {/* Avatar — centered */}
+      <FadeIn
+        delay={0.6}
+        y={30}
+        className="absolute left-1/2 -translate-x-1/2 z-10
+          top-1/2 -translate-y-1/2
+          sm:top-auto sm:translate-y-0 sm:bottom-4"
+      >
+        <Magnet
+          padding={60}
+          strength={4}
+          activeTransition="transform 0.3s ease-out"
+          inactiveTransition="transform 0.6s ease-in-out"
+        >
+          <div
+            className="rounded-full overflow-hidden border-2 border-[#D7E2EA]/20"
+            style={{
+              width: 'clamp(160px, 22vw, 320px)',
+              height: 'clamp(160px, 22vw, 320px)',
+            }}
+          >
+            <InitialsAvatar />
+          </div>
+        </Magnet>
+      </FadeIn>
 
       {/* Bottom Bar */}
       <div className="flex-1 flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
@@ -75,25 +104,6 @@ export default function HeroSection() {
           <ContactButton />
         </FadeIn>
       </div>
-
-      {/* Portrait */}
-      <FadeIn
-        delay={0.6}
-        y={30}
-        className="absolute left-1/2 -translate-x-1/2 z-10
-          w-[280px] sm:w-[360px] md:w-[440px] lg:w-[520px]
-          top-1/2 -translate-y-1/2
-          sm:top-auto sm:translate-y-0 sm:bottom-0"
-      >
-        <Magnet padding={150} strength={3} activeTransition="transform 0.3s ease-out" inactiveTransition="transform 0.6s ease-in-out">
-          <img
-            src="https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png"
-            alt="Jack portrait"
-            className="w-full h-auto"
-            loading="lazy"
-          />
-        </Magnet>
-      </FadeIn>
     </section>
   )
 }
