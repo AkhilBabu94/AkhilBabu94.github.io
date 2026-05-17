@@ -1,5 +1,22 @@
 import { motion } from 'framer-motion'
-import type { ReactNode, ElementType } from 'react'
+import type { ReactNode } from 'react'
+
+const motionMap = {
+  div: motion.div,
+  span: motion.span,
+  nav: motion.nav,
+  section: motion.section,
+  p: motion.p,
+  h1: motion.h1,
+  h2: motion.h2,
+  a: motion.a,
+  ul: motion.ul,
+  li: motion.li,
+  footer: motion.footer,
+  header: motion.header,
+}
+
+type MotionTag = keyof typeof motionMap
 
 interface FadeInProps {
   children: ReactNode
@@ -8,7 +25,7 @@ interface FadeInProps {
   x?: number
   y?: number
   className?: string
-  as?: ElementType
+  as?: MotionTag
 }
 
 export default function FadeIn({
@@ -20,7 +37,7 @@ export default function FadeIn({
   className,
   as = 'div',
 }: FadeInProps) {
-  const MotionEl = motion.create(as as ElementType)
+  const MotionEl = motionMap[as] ?? motion.div
 
   return (
     <MotionEl
