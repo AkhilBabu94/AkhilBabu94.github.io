@@ -3,10 +3,10 @@ import AnimatedText from './AnimatedText'
 import ContactButton from './ContactButton'
 
 const ABOUT_TEXT =
-  "With more than five years of experience as an SDET engineer, i specialise in building automation frameworks from scratch, API testing, and driving quality across agile teams. I enjoy solving complex testing challenges and enabling teams to ship faster with confidence. Let's build something rock-solid together!"
+  "With more than nine years of experience as an SDET engineer, i specialise in building automation frameworks from scratch, API testing, and driving quality across agile teams. I enjoy solving complex testing challenges and enabling teams to ship faster with confidence. Let's build something rock-solid together!"
 
 const STATS = [
-  { value: '5+', label: 'Years Experience' },
+  { value: '9+', label: 'Years Experience' },
   { value: '600+', label: 'Test Cases Built' },
   { value: '90%', label: 'Time Saved via Automation' },
   { value: '3', label: 'Global Clients' },

@@ -14,8 +14,7 @@ function Portrait() {
       <img
         src={PORTRAIT_URL}
         alt="Akhil Babu"
-        className="w-full h-auto object-contain"
-        style={{ maxHeight: '80vh' }}
+        className="h-full w-auto object-contain mx-auto"
         onError={() => setImgFailed(true)}
       />
     )
@@ -25,8 +24,8 @@ function Portrait() {
     <div
       className="rounded-full flex items-center justify-center mx-auto"
       style={{
-        width: 'clamp(200px, 28vw, 380px)',
-        height: 'clamp(200px, 28vw, 380px)',
+        width: 'clamp(180px, 22vw, 320px)',
+        height: 'clamp(180px, 22vw, 320px)',
         background: 'linear-gradient(135deg, #1a0a2e 0%, #3b0d6e 40%, #6b21a8 70%, #be4c00 100%)',
         boxShadow: '0 0 80px rgba(118,33,177,0.4), 0 0 160px rgba(118,33,177,0.15)',
       }}
@@ -34,7 +33,7 @@ function Portrait() {
       <span
         className="font-black uppercase"
         style={{
-          fontSize: 'clamp(4rem, 10vw, 9rem)',
+          fontSize: 'clamp(3rem, 8vw, 7rem)',
           background: 'linear-gradient(180deg, #ffffff 0%, #BBCCD7 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -87,27 +86,32 @@ export default function HeroSection() {
         </nav>
       </FadeIn>
 
-      {/* Hero heading */}
+      {/* Hero heading — smaller so portrait fits below */}
       <div className="overflow-hidden relative z-20">
         <FadeIn delay={0.15} y={40}>
           <h1
-            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center
-              text-[14vw] sm:text-[15vw] md:text-[16vw] lg:text-[17.5vw]
-              mt-4 sm:mt-2 md:-mt-4"
+            className="hero-heading font-black uppercase tracking-tight leading-none whitespace-nowrap w-full text-center mt-4"
+            style={{ fontSize: 'clamp(2.8rem, 8.5vw, 9rem)' }}
           >
             Hi, i&apos;m akhil
           </h1>
         </FadeIn>
       </div>
 
-      {/* Portrait — absolutely centred between heading and bottom bar */}
-      <div
-        className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
-        style={{ paddingTop: '7rem', paddingBottom: '5rem' }}
-      >
-        <FadeIn delay={0.55} y={30} className="pointer-events-auto">
-          <Magnet padding={100} strength={3} activeTransition="transform 0.3s ease-out" inactiveTransition="transform 0.6s ease-in-out">
-            <div style={{ width: 'clamp(220px, 30vw, 460px)' }}>
+      {/* Portrait — in normal flow, fills remaining space */}
+      <div className="flex-1 flex items-center justify-center relative z-10 py-4 overflow-hidden">
+        <FadeIn delay={0.5} y={30} className="h-full flex items-center justify-center">
+          <Magnet
+            padding={80}
+            strength={3}
+            activeTransition="transform 0.3s ease-out"
+            inactiveTransition="transform 0.6s ease-in-out"
+            className="h-full flex items-center justify-center"
+          >
+            <div
+              className="h-full flex items-center justify-center"
+              style={{ maxWidth: 'clamp(200px, 28vw, 420px)' }}
+            >
               <Portrait />
             </div>
           </Magnet>
@@ -115,14 +119,14 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom bar */}
-      <div className="mt-auto relative z-20 flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
+      <div className="relative z-20 flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
         <FadeIn delay={0.35} y={20}>
           <p
             className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug
               max-w-[160px] sm:max-w-[220px] md:max-w-[260px]"
             style={{ fontSize: 'clamp(0.75rem, 1.4vw, 1.5rem)' }}
           >
-            5+ years engineering quality at scale — automation, testing &amp; SDET
+            9+ years engineering quality at scale — automation, testing &amp; SDET
           </p>
         </FadeIn>
         <FadeIn delay={0.5} y={20}>
