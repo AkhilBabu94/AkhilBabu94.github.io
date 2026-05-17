@@ -1,20 +1,41 @@
+import { useState } from 'react'
 import FadeIn from './FadeIn'
 import Magnet from './Magnet'
 import ContactButton from './ContactButton'
 
-function InitialsAvatar() {
+const PORTRAIT_URL =
+  'https://shrug-person-78902957.figma.site/_components/v2/d24c01ad3a56fc65e942a1f501eb73db42d7cf9a/Rectangle_40443.81459862.png'
+
+function Portrait() {
+  const [imgFailed, setImgFailed] = useState(false)
+
+  if (!imgFailed) {
+    return (
+      <img
+        src={PORTRAIT_URL}
+        alt="Akhil Babu"
+        className="w-full h-auto object-contain"
+        style={{ maxHeight: '80vh' }}
+        onError={() => setImgFailed(true)}
+      />
+    )
+  }
+
+  // Fallback: gradient initials avatar
   return (
     <div
-      className="w-full h-full rounded-full flex items-center justify-center select-none"
+      className="rounded-full flex items-center justify-center mx-auto"
       style={{
+        width: 'clamp(200px, 28vw, 380px)',
+        height: 'clamp(200px, 28vw, 380px)',
         background: 'linear-gradient(135deg, #1a0a2e 0%, #3b0d6e 40%, #6b21a8 70%, #be4c00 100%)',
         boxShadow: '0 0 80px rgba(118,33,177,0.4), 0 0 160px rgba(118,33,177,0.15)',
       }}
     >
       <span
-        className="font-black uppercase tracking-tighter"
+        className="font-black uppercase"
         style={{
-          fontSize: 'clamp(4rem, 10vw, 10rem)',
+          fontSize: 'clamp(4rem, 10vw, 9rem)',
           background: 'linear-gradient(180deg, #ffffff 0%, #BBCCD7 100%)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
@@ -62,34 +83,26 @@ export default function HeroSection() {
         </FadeIn>
       </div>
 
-      {/* Avatar — centered */}
-      <FadeIn
-        delay={0.6}
-        y={30}
-        className="absolute left-1/2 -translate-x-1/2 z-10
-          top-1/2 -translate-y-1/2
-          sm:top-auto sm:translate-y-0 sm:bottom-4"
+      {/* Portrait — centered absolutely */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none"
+        style={{ paddingTop: '8rem', paddingBottom: '6rem' }}
       >
-        <Magnet
-          padding={60}
-          strength={4}
-          activeTransition="transform 0.3s ease-out"
-          inactiveTransition="transform 0.6s ease-in-out"
-        >
-          <div
-            className="rounded-full overflow-hidden border-2 border-[#D7E2EA]/20"
-            style={{
-              width: 'clamp(160px, 22vw, 320px)',
-              height: 'clamp(160px, 22vw, 320px)',
-            }}
+        <FadeIn delay={0.6} y={30} className="pointer-events-auto">
+          <Magnet
+            padding={100}
+            strength={3}
+            activeTransition="transform 0.3s ease-out"
+            inactiveTransition="transform 0.6s ease-in-out"
           >
-            <InitialsAvatar />
-          </div>
-        </Magnet>
-      </FadeIn>
+            <div style={{ width: 'clamp(220px, 32vw, 480px)' }}>
+              <Portrait />
+            </div>
+          </Magnet>
+        </FadeIn>
+      </div>
 
       {/* Bottom Bar */}
-      <div className="flex-1 flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10">
+      <div className="mt-auto flex items-end justify-between px-6 md:px-10 pb-7 sm:pb-8 md:pb-10 relative z-20">
         <FadeIn delay={0.35} y={20}>
           <p
             className="text-[#D7E2EA] font-light uppercase tracking-wide leading-snug
